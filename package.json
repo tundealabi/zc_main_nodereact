@@ -10,7 +10,8 @@
     "run-start": "cross-env NODE_ENV=production node server.js",
     "run-dev": "cross-env NODE_ENV=development nodemon server.js",
     "frontend:build": "npm run build --prefix zc_frontend",
-    "frontend:dev": "npm start --prefix zc_frontend"
+    "frontend:dev": "npm start --prefix zc_frontend",
+    "postinstall": "npm install --prefix zc_frontend"
   },
   "dependencies": {
     "express": "^4.17.1"
