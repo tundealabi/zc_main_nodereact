@@ -46,7 +46,7 @@ format on save for the eslint & prettier plugins in your editor 🙃
 # Pull Requests(Aristotle)
 
 - Take note of all instructions above
-- The main branch for development would be the develop branch
+- The main branch for development would be the **DEVELOP** branch
 - Do not make a pull request with changes to the main branch
 - Create a branch in the format...Feat/(Task) e.g Feat/ Button Component and implement your work only in such branch
 - Whatever task it is that you do must be responsive on all screens
