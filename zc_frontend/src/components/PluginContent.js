@@ -32,15 +32,12 @@ export const PluginContent = () => {
         script.remove()
         document.body.appendChild(newScript)
       })
-
-      document.getElementById('plugin-container').innerHTML =
-        html.body.innerHTML
     })
   }, [value.url])
 
   return (
     <section className={styles.container}>
-      <div id="plugin-container" className={styles.content}>
+      <div id="zc-plugin-root" className={styles.content}>
         Loading...
       </div>
     </section>
