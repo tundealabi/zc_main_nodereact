@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, Fragment } from 'react'
 import useSWR from 'swr'
 import { URLContext } from '../contexts/Url'
 
@@ -10,8 +10,9 @@ const fetcher = (url) => fetch(url).then((res) => res.json())
 export const Sidebar = () => {
   const { data: channelsData } = useSWR('/api/plugins/channels', fetcher)
   const { data: messagesData } = useSWR('/api/plugins/messages', fetcher)
+  const { data: plugins } = useSWR('/api/plugins/', fetcher)
 
-  const value = useContext(URLContext)
+  const { setUrl } = useContext(URLContext)
 
   return (
     <div className={styles.container}>
@@ -33,22 +34,30 @@ export const Sidebar = () => {
       </div>
       <Dropdown title="Channels">
         {channelsData &&
-          channelsData.channels.map((channel) => (
-            <>
+          channelsData.channels.map((channel, index) => (
+            <Fragment key={index}>
               <span>#</span>
               {channel.name}
-            </>
+            </Fragment>
+          ))}
+      </Dropdown>
+      <Dropdown title="Plugins">
+        {plugins &&
+          Object.keys(plugins).map((key) => (
+            <span key={key} onClick={() => setUrl('http://' + key)}>
+              {plugins[key].name}
+            </span>
           ))}
       </Dropdown>
       <Dropdown title="messages">
         {messagesData &&
-          messagesData.messages.map((message) => (
-            <>
+          messagesData.messages.map((message, index) => (
+            <Fragment key={index}>
               <span>
                 <img src={message.avatar} alt="avatar" />
               </span>
               {message.name}
-            </>
+            </Fragment>
           ))}
       </Dropdown>
     </div>
