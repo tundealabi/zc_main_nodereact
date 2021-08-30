@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import { URLContext } from '../contexts/Url'
 
 import styles from '../styles/Sidebar.module.css'
+import Dropdown from './Dropdown'
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
@@ -30,63 +31,26 @@ export const Sidebar = () => {
           <img src="/newmessage.svg" alt="New message icon" />
         </div>
       </div>
-      <div className={styles.channelsContainer}>
-        <div className={styles.channelHeader}>
-          <img
-            className={styles.channelDropdownIcon}
-            src="/shapekeyboardarrowdown2.svg"
-            alt="Channels dropdown button"
-          />
-          <p>Channels</p>
-          <img
-            className={styles.channelAddBtn}
-            src="/addicon.svg"
-            alt="Add Channels button"
-          />
-        </div>
-        <div className={styles.channelNames}>
-          {channelsData &&
-            channelsData.channels.map((channel) => (
-              <div key={channel.id}>
-                <p
-                  className={styles.channelItem}
-                  onClick={() => value.setUrl(`/apps/${channel.name}`)}
-                >
-                  <span>#</span>
-                  {channel.name}
-                </p>
-              </div>
-            ))}
-        </div>
-      </div>
-      <div className={styles.messagesContainer}>
-        <div className={styles.messageHeader}>
-          <img
-            className={styles.messageDropdownIcon}
-            src="/shapekeyboardarrowdown2.svg"
-            alt="messages dropdown button"
-          />
-          <p>messages</p>
-          <img
-            className={styles.messageAddBtn}
-            src="/addicon.svg"
-            alt="Add messages button"
-          />
-        </div>
-        <div className={styles.messageNames}>
-          {messagesData &&
-            messagesData.messages.map((message) => (
-              <div className={styles.messageTitle} key={message.id}>
-                <p>
-                  <span>
-                    <img src={message.avatar} alt="avatar" />
-                  </span>
-                  {message.name}
-                </p>
-              </div>
-            ))}
-        </div>
-      </div>
+      <Dropdown title="Channels">
+        {channelsData &&
+          channelsData.channels.map((channel) => (
+            <>
+              <span>#</span>
+              {channel.name}
+            </>
+          ))}
+      </Dropdown>
+      <Dropdown title="messages">
+        {messagesData &&
+          messagesData.messages.map((message) => (
+            <>
+              <span>
+                <img src={message.avatar} alt="avatar" />
+              </span>
+              {message.name}
+            </>
+          ))}
+      </Dropdown>
     </div>
   )
 }
